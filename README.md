@@ -10,7 +10,7 @@ wavetables. It runs as a module in [fm1-dock](https://github.com/joakimeriksson/
   28 ROM wavetables (00 RESONANT to 27 FMNTVOCAL), kept in 8 bits and band-limited for each note. A position moves
   through a table in the PPG's steps, driven by the wave envelope and the LFO.
 - **Unison:** up to 4 voices a key, detuned and spread across the stereo field.
-- **LFO:** synced to the tempo, from 8 bars to 1/32. It moves the pitch, the cutoff and each oscillator's wave.
+- **LFO:** synced to the tempo, from 8 bars to 1/32. It moves the pitch, the cutoff and each oscillator's wave. HOME's LFO AMT adds movement to any preset: up to 18 steps through every wavetable, 1.2 octaves of cutoff and 12 cents of pitch, on top of what the preset does itself (0 leaves the preset as made).
 - **Delay:** a ping-pong delay with a darkening feedback loop.
 - **39 presets** in seven types, at least five each, plus INIT.
 - **Chord generator, arpeggiator and loop recorder,** laid out and played as on
@@ -38,7 +38,7 @@ a power cycle.
 | OCT- / OCT+ | Shift the keys' octave, shown on the top line |
 | ALGORITHM | Choose a type: ALL, PAD, KEYS, BASS, LEAD, BELLS, PLUCK, FX, INIT |
 | PRESETS, SELECT | Choose a preset of that type |
-| HOME | Cutoff, resonance, LFO amount and amp release on KNOB 1–4. Hold for 1.5 s to open fm1-dock's module list |
+| HOME | Cutoff, resonance, LFO AMT (added movement: wave, cutoff, pitch) and amp release on KNOB 1–4. Hold for 1.5 s to open fm1-dock's module list |
 | EDIT | Filter; oscillators 1, 2 and 3 (table, wave, wave envelope amount, semitones); fine tuning |
 | FX | Mixer (the three oscillators, noise); delay (time, feedback, mix, stereo spread); voices (unison, detune, amp and filter velocity) |
 | SEL | Chord generator: chord, inversion, voicing, strum |

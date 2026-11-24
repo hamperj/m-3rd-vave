@@ -163,7 +163,7 @@ int main(int argc, char **argv)
     CHECK(!strcmp(PAGES[page].title, "HOME") && want == members[0] && !strcmp(type_name(type), "ALL") && !edited,
           "starts on HOME, ALL, its first (%s)", W3_PRESET[want].name);
     CHECK(led_on[HB_BTN_EDIT] == 2u && led_on[HB_BTN_FX] == 2u, "HOME: every section glows");
-    CHECK(PAGES[0].c[2].idx == P_LAMT && !strcmp(shown(2), "100%"), "HOME KNOB3: LFO AMT %s", shown(2));
+    CHECK(PAGES[0].c[2].idx == P_LAMT && !strcmp(shown(2), "0%"), "HOME KNOB3: LFO AMT %s (the preset as made)", shown(2));
     press(HB_BTN_LFO);
     CHECK(!strcmp(PAGES[page].title, "LFO") && !strcmp(shown(0), "2 BARS"), "LFO RATE in beats: %s", shown(0));
     turn(HB_ENC_KNOB1, 6);

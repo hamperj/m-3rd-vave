@@ -48,7 +48,8 @@ static const w3_param_t W3_PARAM[W3_NP] = {
     {"WAV ATK", 0, 127}, {"WAV DEC", 0, 127}, {"WAV SUS", 0, 100}, {"WAV REL", 0, 127},
     {"LFO RATE", 0, W3_NDIV - 1}, {"VIBRATO", 0, 100}, {"LFO>CUT", 0, 100}, {"AMP VEL", 0, 100}, {"SPREAD", 0, 100},
     {"DLY TIME", 0, 127}, {"DLY FDBK", 0, 100}, {"DLY MIX", 0, 100},
-    {"UNISON", 1, 4}, {"UNI DETUNE", 0, 50}, {"LFO AMT", 0, 100},   /* voices a key; cents between the outer two, either side */
+    {"UNISON", 1, 4}, {"UNI DETUNE", 0, 50}, {"LFO AMT", 0, 100},   /* voices a key; cents between the outer two,
+                                                                         * either side; added movement (0: the preset as made) */
 };
 
 enum { W3_PAD, W3_KEYS, W3_BASS, W3_LEAD, W3_BELLS, W3_PLUCK, W3_FX, W3_INIT, W3_NTYPE };
@@ -71,10 +72,10 @@ static const w3_preset_t W3_PRESET[] = {
     {"DIGI BELL", W3_BELLS, {OSC(0, 4, 0, 40, 0, 0, 0, 80), OSC(1, 2, 20, 30, 0, 12, 3, 40), ENV(A, 0, 100, 0, 100),
                    ENV(F, 0, 95, 20, 95), ENV(W, 0, 85, 0, 85), [P_CUT] = 105, [P_RES] = 5, [P_FENV] = 20,
                    [P_KTRK] = 70, [P_AVEL] = 60, [P_FVEL] = 40, [P_SPREAD] = 60, [P_DTIME] = 80, [P_DFB] = 30,
-                   [P_DMIX] = 25}},
+                   [P_DMIX] = 25, [P_LRATE] = 3}},
     {"RESO BASS", W3_BASS, {OSC(0, 0, 50, -40, 0, -12, 0, 85), OSC(1, 7, 10, 0, 0, -12, 4, 50), ENV(A, 0, 75, 70, 50),
                    ENV(F, 0, 70, 10, 50), ENV(W, 0, 65, 0, 50), [P_CUT] = 52, [P_RES] = 25, [P_FENV] = 35,
-                   [P_KTRK] = 40, [P_AVEL] = 40, [P_FVEL] = 30, [P_SPREAD] = 0}},
+                   [P_KTRK] = 40, [P_AVEL] = 40, [P_FVEL] = 30, [P_SPREAD] = 0, [P_LRATE] = 3}},
     {"E.PIANO", W3_KEYS, {OSC(0, 19, 0, 30, 0, 0, -3, 75), OSC(1, 19, 8, 30, 0, 0, 3, 55), ENV(A, 0, 105, 0, 85),
                  ENV(F, 0, 95, 30, 80), ENV(W, 0, 90, 0, 80), [P_CUT] = 95, [P_RES] = 0, [P_FENV] = 15,
                  [P_KTRK] = 60, [P_LRATE] = 3, [P_LCUT] = 0, [P_AVEL] = 60, [P_FVEL] = 50, [P_SPREAD] = 50,
@@ -89,7 +90,7 @@ static const w3_preset_t W3_PRESET[] = {
     {"TRANSIENT", W3_PLUCK, {OSC(0, 18, 0, 60, 0, 0, 0, 80), OSC(1, 25, 10, 40, 0, 0, 7, 40), ENV(A, 0, 85, 20, 75),
                    ENV(F, 0, 80, 20, 70), ENV(W, 0, 70, 0, 70), [P_CUT] = 85, [P_RES] = 15, [P_FENV] = 30,
                    [P_KTRK] = 60, [P_AVEL] = 50, [P_FVEL] = 40, [P_SPREAD] = 60, [P_DTIME] = 70, [P_DFB] = 40,
-                   [P_DMIX] = 30}},
+                   [P_DMIX] = 30, [P_LRATE] = 3}},
     {"ROBOTIC", W3_FX, {OSC(0, 20, 0, 0, 63, 0, 0, 75), OSC(1, 20, 30, 0, 50, -12, 0, 45), ENV(A, 10, 80, 80, 70),
                  ENV(F, 10, 80, 60, 70), ENV(W, 0, 80, 100, 70), [P_CUT] = 88, [P_RES] = 30, [P_FENV] = 10,
                  [P_KTRK] = 50, [P_LRATE] = 5, [P_AVEL] = 30, [P_SPREAD] = 50, [P_DTIME] = 64, [P_DFB] = 30,
@@ -100,7 +101,7 @@ static const w3_preset_t W3_PRESET[] = {
                    [P_DTIME] = 85, [P_DFB] = 35, [P_DMIX] = 25}},
     {"RESO SWEEP", W3_PAD, {OSC(0, 1, 0, 55, 0, 0, -5, 75), OSC(1, 1, 10, 45, 0, 0, 5, 60), ENV(A, 20, 100, 30, 85),
                     ENV(F, 20, 95, 40, 85), ENV(W, 40, 105, 20, 90), [P_CUT] = 88, [P_RES] = 15, [P_FENV] = 20,
-                    [P_KTRK] = 50, [P_AVEL] = 30, [P_SPREAD] = 70, [P_DTIME] = 95, [P_DFB] = 40, [P_DMIX] = 25}},
+                    [P_KTRK] = 50, [P_AVEL] = 30, [P_SPREAD] = 70, [P_DTIME] = 95, [P_DFB] = 40, [P_DMIX] = 25, [P_LRATE] = 3}},
     {"SQR LEAD", W3_LEAD, {OSC(0, 3, 20, 20, 30, 0, -7, 75), OSC(1, 3, 35, 10, 20, 12, 7, 35), ENV(A, 10, 85, 75, 70),
                   ENV(F, 5, 85, 55, 70), ENV(W, 20, 95, 60, 75), [P_CUT] = 84, [P_RES] = 20, [P_FENV] = 25,
                   [P_KTRK] = 60, [P_LRATE] = 4, [P_LPITCH] = 12, [P_AVEL] = 30, [P_SPREAD] = 20, [P_DTIME] = 88,
@@ -112,10 +113,10 @@ static const w3_preset_t W3_PRESET[] = {
     {"FEEDBACK", W3_PLUCK, {OSC(0, 8, 0, 50, 0, 0, 0, 80), OSC(1, 8, 20, 30, 0, -12, 4, 45), ENV(A, 0, 80, 25, 70),
                   ENV(F, 0, 75, 20, 70), ENV(W, 0, 75, 0, 70), [P_CUT] = 80, [P_RES] = 25, [P_FENV] = 30,
                   [P_KTRK] = 60, [P_AVEL] = 50, [P_FVEL] = 40, [P_SPREAD] = 50, [P_DTIME] = 72, [P_DFB] = 35,
-                  [P_DMIX] = 22}},
+                  [P_DMIX] = 22, [P_LRATE] = 3}},
     {"ADD HARM", W3_KEYS, {OSC(0, 9, 0, 50, 0, 0, 0, 75), OSC(1, 9, 30, -20, 0, 12, 2, 35), ENV(A, 0, 100, 40, 90),
                   ENV(F, 0, 95, 60, 90), ENV(W, 10, 105, 30, 95), [P_CUT] = 100, [P_KTRK] = 50, [P_AVEL] = 40,
-                  [P_SPREAD] = 60, [P_DTIME] = 90, [P_DFB] = 35, [P_DMIX] = 25}},
+                  [P_SPREAD] = 60, [P_DTIME] = 90, [P_DFB] = 35, [P_DMIX] = 25, [P_LRATE] = 3}},
     {"HP RESO", W3_FX, {OSC(0, 10, 0, 63, 0, 0, -4, 70), OSC(1, 10, 15, 50, 0, 0, 4, 55), ENV(A, 30, 95, 50, 85),
                  ENV(F, 30, 95, 50, 85), ENV(W, 60, 110, 30, 90), [P_CUT] = 96, [P_RES] = 10, [P_FENV] = 10,
                  [P_KTRK] = 50, [P_LRATE] = 2, [P_LCUT] = 10, [P_SPREAD] = 80, [P_DTIME] = 100, [P_DFB] = 45,
@@ -134,14 +135,14 @@ static const w3_preset_t W3_PRESET[] = {
                  [P_DMIX] = 30}},
     {"STRONG KEYS", W3_KEYS, {OSC(0, 21, 0, 40, 0, 0, -3, 75), OSC(1, 21, 20, 20, 0, 12, 3, 35), ENV(A, 0, 98, 25, 80),
                      ENV(F, 0, 90, 35, 80), ENV(W, 0, 90, 0, 80), [P_CUT] = 92, [P_FENV] = 20, [P_KTRK] = 60,
-                     [P_AVEL] = 60, [P_FVEL] = 50, [P_SPREAD] = 50, [P_DTIME] = 76, [P_DFB] = 25, [P_DMIX] = 18}},
+                     [P_AVEL] = 60, [P_FVEL] = 50, [P_SPREAD] = 50, [P_DTIME] = 76, [P_DFB] = 25, [P_DMIX] = 18, [P_LRATE] = 3}},
     {"RESO PLUCK", W3_PLUCK, {OSC(0, 24, 0, 63, 0, 0, 0, 80), OSC(1, 24, 20, 40, 0, 12, 5, 35), ENV(A, 0, 78, 0, 70),
                     ENV(F, 0, 72, 0, 65), ENV(W, 0, 68, 0, 65), [P_CUT] = 78, [P_RES] = 30, [P_FENV] = 35,
                     [P_KTRK] = 60, [P_AVEL] = 50, [P_FVEL] = 40, [P_SPREAD] = 70, [P_DTIME] = 70, [P_DFB] = 50,
-                    [P_DMIX] = 35}},
+                    [P_DMIX] = 35, [P_LRATE] = 3}},
     {"SOFT BASS", W3_BASS, {OSC(0, 7, 20, -20, 0, -12, 0, 80), OSC(1, 7, 61, 0, 0, -24, 0, 50), ENV(A, 0, 80, 75, 50),
                    ENV(F, 0, 72, 20, 50), ENV(W, 0, 70, 0, 50), [P_CUT] = 48, [P_RES] = 10, [P_FENV] = 25,
-                   [P_KTRK] = 40, [P_AVEL] = 40, [P_FVEL] = 25}},
+                   [P_KTRK] = 40, [P_AVEL] = 40, [P_FVEL] = 25, [P_LRATE] = 3}},
     {"STRINGS", W3_PAD, {OSC(0, 6, 63, 0, 0, 0, -9, 60), OSC(1, 6, 63, 0, 0, 0, 9, 60), OSC(2, 6, 63, 0, 0, 12, 0, 30),
                  ENV(A, 88, 95, 90, 95), ENV(F, 80, 95, 80, 95), ENV(W, 0, 60, 100, 60), [P_CUT] = 84, [P_RES] = 5,
                  [P_FENV] = 10, [P_KTRK] = 40, [P_LRATE] = 5, [P_LPITCH] = 5, [P_SPREAD] = 100, [P_DTIME] = 100,
@@ -149,48 +150,48 @@ static const w3_preset_t W3_PRESET[] = {
     {"GLASS BELLS", W3_BELLS, {OSC(0, 4, 20, 20, 0, 0, 0, 70), OSC(1, 12, 0, 30, 0, 24, 5, 40), OSC(2, 2, 10, 0, 0, 7, 0, 25),
                      ENV(A, 0, 108, 0, 105), ENV(F, 0, 100, 30, 100), ENV(W, 0, 95, 0, 95), [P_CUT] = 108,
                      [P_KTRK] = 60, [P_AVEL] = 60, [P_FVEL] = 30, [P_SPREAD] = 80, [P_DTIME] = 96, [P_DFB] = 45,
-                     [P_DMIX] = 32}},
+                     [P_DMIX] = 32, [P_LRATE] = 3}},
     {"SUPER SAW", W3_LEAD, {OSC(0, 6, 63, 0, 0, 0, 0, 80), OSC(1, 6, 63, 0, 0, 12, 0, 30), ENV(A, 40, 90, 85, 85),
                    ENV(F, 40, 90, 60, 85), ENV(W, 0, 60, 100, 60), [P_CUT] = 84, [P_RES] = 8, [P_FENV] = 15,
                    [P_KTRK] = 50, [P_AVEL] = 25, [P_SPREAD] = 100, [P_DTIME] = 92, [P_DFB] = 35, [P_DMIX] = 22,
-                   [P_UNI] = 4, [P_UDET] = 22}},
+                   [P_UNI] = 4, [P_UDET] = 22, [P_LRATE] = 3}},
     {"UNI LEAD", W3_LEAD, {OSC(0, 23, 10, 40, 0, 0, 0, 75), OSC(1, 15, 20, 20, 0, -12, 0, 45), ENV(A, 5, 85, 75, 70),
                   ENV(F, 5, 85, 50, 70), ENV(W, 30, 100, 40, 80), [P_CUT] = 82, [P_RES] = 20, [P_FENV] = 25,
                   [P_KTRK] = 60, [P_LRATE] = 5, [P_LPITCH] = 10, [P_AVEL] = 30, [P_SPREAD] = 80, [P_DTIME] = 85,
                   [P_DFB] = 35, [P_DMIX] = 22, [P_UNI] = 3, [P_UDET] = 14}},
     {"PERC ORGAN", W3_KEYS, {OSC(0, 22, 0, 20, 0, 0, 0, 75), OSC(1, 14, 10, 0, 0, 12, 0, 40), ENV(A, 0, 75, 60, 45),
                              ENV(F, 0, 70, 70, 45), ENV(W, 0, 60, 0, 45), [P_CUT] = 98, [P_KTRK] = 40, [P_AVEL] = 30,
-                             [P_SPREAD] = 50, [P_DTIME] = 64, [P_DFB] = 15, [P_DMIX] = 12}},
+                             [P_SPREAD] = 50, [P_DTIME] = 64, [P_DFB] = 15, [P_DMIX] = 12, [P_LRATE] = 3}},
     {"CLAV WAVE", W3_KEYS, {OSC(0, 13, 0, 40, 0, 0, 0, 100), OSC(1, 13, 10, 30, 0, 12, 5, 45), ENV(A, 0, 86, 25, 55), ENV(F, 0, 70, 10, 50),
                             ENV(W, 0, 65, 0, 50), [P_CUT] = 90, [P_RES] = 15, [P_FENV] = 30, [P_KTRK] = 50,
-                            [P_AVEL] = 60, [P_FVEL] = 50, [P_SPREAD] = 40, [P_DTIME] = 60, [P_DFB] = 15, [P_DMIX] = 10}},
+                            [P_AVEL] = 60, [P_FVEL] = 50, [P_SPREAD] = 40, [P_DTIME] = 60, [P_DFB] = 15, [P_DMIX] = 10, [P_LRATE] = 3}},
     {"SUB WAVE", W3_BASS, {OSC(0, 6, 61, 0, 0, -12, 0, 85), OSC(1, 7, 0, 10, 0, -12, 3, 40), ENV(A, 0, 80, 85, 50),
                            ENV(F, 0, 70, 40, 50), ENV(W, 0, 70, 0, 50), [P_CUT] = 45, [P_RES] = 5, [P_FENV] = 15,
-                           [P_KTRK] = 40, [P_AVEL] = 40}},
+                           [P_KTRK] = 40, [P_AVEL] = 40, [P_LRATE] = 3}},
     {"PLUCK BASS", W3_BASS, {OSC(0, 0, 40, -30, 0, -12, 0, 80), ENV(A, 0, 72, 30, 45), ENV(F, 0, 62, 0, 45),
                              ENV(W, 0, 58, 0, 45), [P_CUT] = 42, [P_RES] = 20, [P_FENV] = 40, [P_KTRK] = 50,
-                             [P_AVEL] = 50, [P_FVEL] = 30}},
+                             [P_AVEL] = 50, [P_FVEL] = 30, [P_LRATE] = 3}},
     {"VOX BASS", W3_BASS, {OSC(0, 27, 0, 30, 0, -12, 0, 75), OSC(1, 16, 10, 0, 0, -24, 0, 40), ENV(A, 5, 80, 80, 55),
                            ENV(F, 5, 75, 50, 55), ENV(W, 10, 85, 40, 60), [P_CUT] = 50, [P_RES] = 15, [P_FENV] = 20,
-                           [P_KTRK] = 40, [P_AVEL] = 40}},
+                           [P_KTRK] = 40, [P_AVEL] = 40, [P_LRATE] = 3}},
     {"MALLET", W3_BELLS, {OSC(0, 2, 0, 50, 0, 0, 0, 80), OSC(1, 9, 10, 20, 0, 12, 4, 35), ENV(A, 0, 92, 0, 90),
                           ENV(F, 0, 85, 10, 85), ENV(W, 0, 75, 0, 75), [P_CUT] = 104, [P_KTRK] = 70, [P_AVEL] = 60,
-                          [P_FVEL] = 30, [P_SPREAD] = 70, [P_DTIME] = 84, [P_DFB] = 40, [P_DMIX] = 28}},
+                          [P_FVEL] = 30, [P_SPREAD] = 70, [P_DTIME] = 84, [P_DFB] = 40, [P_DMIX] = 28, [P_LRATE] = 3}},
     {"TINE BELL", W3_BELLS, {OSC(0, 21, 30, 30, 0, 0, 0, 70), OSC(1, 4, 0, 0, 0, 24, 0, 40), ENV(A, 0, 100, 0, 98),
                              ENV(F, 0, 95, 20, 95), ENV(W, 0, 85, 0, 85), [P_CUT] = 110, [P_KTRK] = 60, [P_AVEL] = 50,
-                             [P_SPREAD] = 80, [P_DTIME] = 96, [P_DFB] = 45, [P_DMIX] = 30}},
+                             [P_SPREAD] = 80, [P_DTIME] = 96, [P_DFB] = 45, [P_DMIX] = 30, [P_LRATE] = 3}},
     {"HARM BELLS", W3_BELLS, {OSC(0, 24, 10, 40, 0, 0, 0, 65), OSC(1, 12, 30, 30, 0, 19, 3, 40),
                               OSC(2, 4, 0, 0, 0, 12, 0, 25), ENV(A, 0, 104, 0, 102), ENV(F, 0, 100, 30, 100),
                               ENV(W, 0, 95, 0, 95), [P_CUT] = 106, [P_KTRK] = 60, [P_AVEL] = 50, [P_SPREAD] = 90,
-                              [P_DTIME] = 100, [P_DFB] = 50, [P_DMIX] = 32}},
+                              [P_DTIME] = 100, [P_DFB] = 50, [P_DMIX] = 32, [P_LRATE] = 3}},
     {"HARP WAVE", W3_PLUCK, {OSC(0, 9, 0, 50, 0, 0, 0, 75), OSC(1, 6, 63, 0, 0, 12, 3, 30), ENV(A, 0, 88, 0, 85),
                              ENV(F, 0, 80, 0, 80), ENV(W, 0, 75, 0, 75), [P_CUT] = 86, [P_RES] = 10, [P_FENV] = 30,
                              [P_KTRK] = 60, [P_AVEL] = 50, [P_FVEL] = 40, [P_SPREAD] = 80, [P_DTIME] = 88, [P_DFB] = 40,
-                             [P_DMIX] = 28}},
+                             [P_DMIX] = 28, [P_LRATE] = 3}},
     {"SYNC PLUCK", W3_PLUCK, {OSC(0, 10, 0, 63, 0, 0, 0, 95), OSC(1, 1, 20, 40, 0, 7, 0, 55), ENV(A, 0, 82, 10, 70),
                               ENV(F, 0, 72, 10, 66), ENV(W, 0, 66, 0, 64), [P_CUT] = 88, [P_RES] = 25, [P_FENV] = 35,
                               [P_KTRK] = 60, [P_AVEL] = 50, [P_FVEL] = 40, [P_SPREAD] = 60, [P_DTIME] = 70, [P_DFB] = 45,
-                              [P_DMIX] = 30}},
+                              [P_DMIX] = 30, [P_LRATE] = 3}},
     {"SEA SPRAY", W3_FX, {OSC(0, 11, 20, 30, 40, 0, 0, 40), ENV(A, 95, 100, 80, 105), ENV(F, 95, 100, 40, 105),
                           ENV(W, 100, 105, 40, 105), [P_NOISE] = 60, [P_CUT] = 70, [P_RES] = 45, [P_FENV] = 30,
                           [P_LRATE] = 0, [P_LCUT] = 40, [P_SPREAD] = 100, [P_DTIME] = 110, [P_DFB] = 60, [P_DMIX] = 40}},
@@ -200,7 +201,7 @@ static const w3_preset_t W3_PRESET[] = {
     {"TIDE RISER", W3_FX, {OSC(0, 6, 0, 63, 0, 0, -10, 60), OSC(1, 6, 0, 63, 0, 0, 10, 60), OSC(2, 6, 0, 63, 0, 12, 0, 30),
                            ENV(A, 100, 110, 90, 105), ENV(F, 110, 110, 90, 105), ENV(W, 118, 118, 100, 105),
                            [P_CUT] = 50, [P_RES] = 25, [P_FENV] = 60, [P_KTRK] = 40, [P_SPREAD] = 100, [P_DTIME] = 100,
-                           [P_DFB] = 55, [P_DMIX] = 35}},
+                           [P_DFB] = 55, [P_DMIX] = 35, [P_LRATE] = 3}},
     {"INIT", W3_INIT, {OSC(0, 6, 63, 0, 0, 0, 0, 80), ENV(A, 0, 64, 100, 50), ENV(F, 0, 64, 100, 50),
                        ENV(W, 0, 64, 100, 50), [P_CUT] = 127, [P_KTRK] = 50, [P_AVEL] = 50, [P_LRATE] = 4,
                        [P_DTIME] = 64}},   /* one saw, open */
@@ -232,9 +233,7 @@ static void w3_load(uint32_t i)
     for (k = 0; k < W3_NP; k++)
         w3_p[k] = W3_PRESET[i].p[k];
     if (w3_p[P_UNI] < 1)
-        w3_p[P_UNI] = 1;                         /* (a preset that does not say: one voice a key, */
-    if (w3_p[P_LAMT] < 1)
-        w3_p[P_LAMT] = 100;                      /* its LFO at the depths it sets) */
+        w3_p[P_UNI] = 1;                         /* (a preset that does not say: one voice a key) */
 }
 
 static void w3_note(uint32_t key, uint32_t vel)  /* main loop: queued for the render */
@@ -325,7 +324,7 @@ static inline float w3_read(const int8_t *w, float x)
 #define W3_MAXN 256u                             /* frames a pass (a longer render takes several) */
 #define W3_MAXB (W3_MAXN / W3_CTL)
 static struct {
-    float c[3][3], s[3], lvl[3], lfo[W3_MAXB], cut0, res, noise;
+    float c[3][3], s[3], lvl[3], lfo[W3_MAXB], cut0, res, noise, mot;   /* mot: LFO AMT, 0..1 */
     uint32_t n;
 } w3_ctl;
 static float w3_mix[2][2u * W3_MAXN];            /* each core's voices, L R */
@@ -354,7 +353,7 @@ static void w3_voices(uint32_t first, uint32_t step)
             for (o = 0; o < 3u; o++) {
                 int32_t pos, lv = 0;
                 float semi = (float)((int32_t)v->key - 69 + p[P_OSC(o, O_SEMI)]) + (float)p[P_OSC(o, O_FINE)] * 0.01f + v->det +
-                             lfo * (float)p[P_LPITCH] * 0.01f, f, hmax;
+                             lfo * ((float)p[P_LPITCH] * 0.01f + w3_ctl.mot * 0.12f), f, hmax;
                 const w3_pos_t *e;
                 if (w3_ctl.lvl[o] == 0) continue;
                 f = 440.0f * fm_exp2f(semi * (1.0f / 12.0f));
@@ -363,6 +362,11 @@ static void w3_voices(uint32_t first, uint32_t step)
                 while (lv < 5 && (float)W3_LVL_H[lv] > hmax) lv++;
                 pos = p[P_OSC(o, O_POS)] + (int32_t)(v->env[2] * (float)p[P_OSC(o, O_ENV)] +
                                                      lfo * (float)p[P_OSC(o, O_LFO)] * 0.5f);
+                if (pos <= 60) {                 /* LFO AMT moves a wave within its table (it leaves the triangle,
+                                                  * square and saw be, and stops short of them) */
+                    pos += (int32_t)(lfo * w3_ctl.mot * 18.0f);
+                    pos = pos > 60 ? 60 : pos;
+                }
                 pos = pos < 0 ? 0 : pos > 63 ? 63 : pos;   /* the PPG's steps: no position between two */
                 e = &W3_TAB[p[P_OSC(o, O_TAB)]][pos];
                 v->wa[o] = W3_WAVE + e->a * W3_WAVE_BYTES + W3_LVL_AT[lv];
@@ -372,7 +376,7 @@ static void w3_voices(uint32_t first, uint32_t step)
             }
             oct = w3_ctl.cut0 + v->env[1] * (float)p[P_FENV] * 0.08f +
                   (float)((int32_t)v->key - 60) * (float)p[P_KTRK] * (1.0f / 1200.0f) +
-                  (v->vel - 1.0f) * (float)p[P_FVEL] * 0.04f + lfo * (float)p[P_LCUT] * 0.03f;
+                  (v->vel - 1.0f) * (float)p[P_FVEL] * 0.04f + lfo * ((float)p[P_LCUT] * 0.03f + w3_ctl.mot * 1.2f);
             fc = fm_exp2f(fm_clampf(oct, 4.0f, 14.0f));
             fc = fc > 16000.0f ? 16000.0f : fc;
             g = 1.0f - fm_expf(-FM_TWO_PI * fc / W3_FS);
@@ -430,11 +434,12 @@ static void w3_pass(int32_t *out, uint32_t n)
     for (b = 0; b * W3_CTL < n; b++) {
         w3_lph += w3_bpm * (1.0f / 60.0f) / W3_DIV_BEATS[p[P_LRATE] < (int8_t)W3_NDIV ? p[P_LRATE] : 0] * W3_CTL_DT;
         if (w3_lph >= 1.0f) w3_lph -= 1.0f;
-        w3_ctl.lfo[b] = (w3_lph < 0.5f ? 4.0f * w3_lph - 1.0f : 3.0f - 4.0f * w3_lph) * (float)p[P_LAMT] * 0.01f;   /* LFO AMT:
-                                                  * all it moves */
+        w3_ctl.lfo[b] = w3_lph < 0.5f ? 4.0f * w3_lph - 1.0f : 3.0f - 4.0f * w3_lph;
     }
     w3_ctl.cut0 = 4.3219f + (float)p[P_CUT] * (9.9658f / 127.0f);   /* log2 Hz: 20 Hz .. 20 kHz */
     w3_ctl.res = (float)p[P_RES] * 0.039f;
+    w3_ctl.mot = (float)p[P_LAMT] * 0.01f;      /* LFO AMT: movement on top of the preset's own, at its LFO's rate: up
+                                                 * to 18 steps of every wave, 1.2 octaves of cutoff, 12 cents of pitch */
     w3_ctl.noise = (float)p[P_NOISE] * (0.3f / 100.0f / 32768.0f);
     w3_ctl.n = n;
     split = w3_c1_run && w3_c1_run(w3_c1_job, 0);

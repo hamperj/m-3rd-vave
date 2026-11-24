@@ -114,6 +114,39 @@ int main(int argc, char **argv)
         printf("two cores against one: at most %d LSB apart\n", d);
         if (d > 2) { printf("  FAIL: the split changes the sound\n"); fails++; }
     }
+    {   /* LFO AMT: 0 the preset as made; up, movement on a preset that routes no LFO of its own */
+        uint32_t i;
+        int d = 0;
+        for (g = 0; g < W3_NPRESET && strcmp(W3_PRESET[g].name, "SOFT BASS"); g++) ;
+        assert(g < W3_NPRESET && W3_PRESET[g].p[P_LAMT] == 0);
+        play(g);
+        memcpy(one, pcm, sizeof pcm);
+        w3_load(g);
+        w3_p[P_LAMT] = 100;
+        {   /* (play() loads the preset: the amount set after it, then the score again) */
+            uint32_t frames = 0, ev = 0;
+            w3_p_panic = 1;
+            memset(w3_v, 0, sizeof w3_v); memset(w3_dl, 0, sizeof w3_dl); memset(w3_dr, 0, sizeof w3_dr);
+            w3_dlp = w3_lph = 0;
+            while (frames < 44100u * SECS) {
+                int32_t blk[512] = {0};
+                while (ev < sizeof SCORE / sizeof *SCORE && SCORE[ev].at * 44100.0f <= (float)frames)
+                    w3_note(SCORE[ev].key, SCORE[ev].vel), ev++;
+                w3_render(blk, 256);
+                for (i = 0; i < 512u; i++) pcm[2u * frames + i] = (int16_t)blk[i];
+                frames += 256u;
+            }
+        }
+        for (i = 0; i < sizeof pcm / sizeof *pcm; i++)
+            if (abs(pcm[i] - one[i]) > d) d = abs(pcm[i] - one[i]);
+        printf("SOFT BASS, LFO AMT 100 against 0: up to %d LSB apart\n", d);
+        if (d < 1000) { printf("  FAIL: LFO AMT adds no movement\n"); fails++; }
+        {
+            char path[512];
+            snprintf(path, sizeof path, "%s/lfo-amt-100-%s.wav", out, "SOFT_BASS");
+            wav(path, pcm, 44100u * SECS);
+        }
+    }
     {   /* one core: never more than W3_NV1 voices sound; two: all W3_NV (SUPER SAW: 4 a key, 6 keys held) */
         uint32_t s, i, k, on;
         for (s = 0; s < 2u; s++) {
