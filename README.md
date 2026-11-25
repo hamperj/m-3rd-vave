@@ -20,10 +20,11 @@ wavetables. It runs as a module in [fm1-dock](https://github.com/joakimeriksson/
 
 ## Install
 
-Build `build/m3rdvave.dock` (see below), then deploy it from fm1-dock:
+Download `m3rdvave.dock` from the [latest release](https://github.com/hamperj/m-3rd-vave/releases/latest) (or build
+it, see below), then deploy it from fm1-dock:
 
 ```sh
-uv run --with python-rtmidi tools/dock.py deploy /path/to/m-3rd-vave/build/m3rdvave.dock
+uv run --with python-rtmidi tools/dock.py deploy /path/to/m3rdvave.dock
 ```
 
 The module takes about 114 KiB of fm1-dock's module space. If a deploy replaces a copy that is running, switch the
